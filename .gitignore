@@ -1,0 +1,4 @@
+/project/vendor/
+/project/resources/crud-angular/node_modules/
+/project/.env
+/mysql-data/
