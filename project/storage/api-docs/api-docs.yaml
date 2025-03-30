@@ -1,0 +1,715 @@
+openapi: 3.0.0
+info:
+  title: 'Laravel CRUD API'
+  description: "Documentation de l'API pour gérer les utilisateurs, clients, matériaux, ventes et tickets"
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8741/api'
+    description: 'Serveur local'
+paths:
+  /utilisateur:
+    get:
+      tags:
+        - Users
+      summary: 'Récupérer la liste des utilisateurs'
+      description: 'Retourne tous les utilisateurs enregistrés'
+      responses:
+        '200':
+          description: 'Liste des utilisateurs récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: 'Créer un nouvel utilisateur'
+      description: 'Ajoute un nouvel utilisateur à la base de données'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: 'Utilisateur créé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: 'Erreur de validation'
+  '/utilisateur/{id}':
+    get:
+      tags:
+        - Users
+      summary: 'Récupérer un utilisateur spécifique'
+      description: 'Retourne les détails d’un utilisateur par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Utilisateur récupéré avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 'Utilisateur non trouvé'
+    put:
+      tags:
+        - Users
+      summary: 'Mettre à jour un utilisateur'
+      description: 'Met à jour les informations d’un utilisateur existant'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: 'Utilisateur mis à jour avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 'Utilisateur non trouvé'
+    delete:
+      tags:
+        - Users
+      summary: 'Supprimer un utilisateur'
+      description: 'Supprime un utilisateur par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Utilisateur supprimé avec succès'
+        '404':
+          description: 'Utilisateur non trouvé'
+  /client:
+    get:
+      tags:
+        - Clients
+      summary: 'Récupérer la liste des clients'
+      description: 'Retourne tous les clients enregistrés'
+      responses:
+        '200':
+          description: 'Liste des clients récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+    post:
+      tags:
+        - Clients
+      summary: 'Créer un nouveau client'
+      description: 'Ajoute un nouveau client à la base de données'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientInput'
+      responses:
+        '201':
+          description: 'Client créé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '422':
+          description: 'Erreur de validation'
+  '/client/{id}':
+    get:
+      tags:
+        - Clients
+      summary: 'Récupérer un client spécifique'
+      description: 'Retourne les détails d’un client par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Client récupéré avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: 'Client non trouvé'
+    put:
+      tags:
+        - Clients
+      summary: 'Mettre à jour un client'
+      description: 'Met à jour les informations d’un client existant'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientInput'
+      responses:
+        '200':
+          description: 'Client mis à jour avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: 'Client non trouvé'
+    delete:
+      tags:
+        - Clients
+      summary: 'Supprimer un client'
+      description: 'Supprime un client par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Client supprimé avec succès'
+        '404':
+          description: 'Client non trouvé'
+  /material:
+    get:
+      tags:
+        - Materials
+      summary: 'Récupérer la liste des matériaux'
+      description: 'Retourne tous les matériaux enregistrés'
+      responses:
+        '200':
+          description: 'Liste des matériaux récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Material'
+    post:
+      tags:
+        - Materials
+      summary: 'Créer un nouveau matériau'
+      description: 'Ajoute un nouveau matériau à la base de données'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaterialInput'
+      responses:
+        '201':
+          description: 'Matériau créé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '422':
+          description: 'Erreur de validation'
+  '/material/{id}':
+    get:
+      tags:
+        - Materials
+      summary: 'Récupérer un matériau spécifique'
+      description: 'Retourne les détails d’un matériau par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Matériau récupéré avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '404':
+          description: 'Matériau non trouvé'
+    put:
+      tags:
+        - Materials
+      summary: 'Mettre à jour un matériau'
+      description: 'Met à jour les informations d’un matériau existant'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaterialInput'
+      responses:
+        '200':
+          description: 'Matériau mis à jour avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '404':
+          description: 'Matériau non trouvé'
+    delete:
+      tags:
+        - Materials
+      summary: 'Supprimer un matériau'
+      description: 'Supprime un matériau par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Matériau supprimé avec succès'
+        '404':
+          description: 'Matériau non trouvé'
+  /sale:
+    get:
+      tags:
+        - Sales
+      summary: 'Récupérer la liste des ventes'
+      description: 'Retourne toutes les ventes avec leurs matériaux associés'
+      responses:
+        '200':
+          description: 'Liste des ventes récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sale'
+    post:
+      tags:
+        - Sales
+      summary: 'Créer une nouvelle vente'
+      description: 'Ajoute une nouvelle vente à la base de données'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaleInput'
+      responses:
+        '201':
+          description: 'Vente créée avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+        '422':
+          description: 'Erreur de validation'
+  '/sale/{id}':
+    get:
+      tags:
+        - Sales
+      summary: 'Récupérer une vente spécifique'
+      description: 'Retourne les détails d’une vente par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Vente récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+        '404':
+          description: 'Vente non trouvée'
+    put:
+      tags:
+        - Sales
+      summary: 'Mettre à jour une vente'
+      description: 'Met à jour les informations d’une vente existante'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaleInput'
+      responses:
+        '200':
+          description: 'Vente mise à jour avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+        '404':
+          description: 'Vente non trouvée'
+    delete:
+      tags:
+        - Sales
+      summary: 'Supprimer une vente'
+      description: 'Supprime une vente par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Vente supprimée avec succès'
+        '404':
+          description: 'Vente non trouvée'
+  /ticket:
+    get:
+      tags:
+        - Tickets
+      summary: 'Récupérer la liste des tickets'
+      description: 'Retourne tous les tickets enregistrés'
+      responses:
+        '200':
+          description: 'Liste des tickets récupérée avec succès'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+    post:
+      tags:
+        - Tickets
+      summary: 'Créer un nouveau ticket'
+      description: 'Ajoute un nouveau ticket à la base de données'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketInput'
+      responses:
+        '201':
+          description: 'Ticket créé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '422':
+          description: 'Erreur de validation'
+  '/ticket/{id}':
+    get:
+      tags:
+        - Tickets
+      summary: 'Récupérer un ticket spécifique'
+      description: 'Retourne les détails d’un ticket par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Ticket récupéré avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '404':
+          description: 'Ticket non trouvé'
+    put:
+      tags:
+        - Tickets
+      summary: 'Mettre à jour un ticket'
+      description: 'Met à jour les informations d’un ticket existant'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketInput'
+      responses:
+        '200':
+          description: 'Ticket mis à jour avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '404':
+          description: 'Ticket non trouvé'
+    delete:
+      tags:
+        - Tickets
+      summary: 'Supprimer un ticket'
+      description: 'Supprime un ticket par son ID'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Ticket supprimé avec succès'
+        '404':
+          description: 'Ticket non trouvé'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'John Doe'
+        email:
+          type: string
+          example: john.doe@example.com
+        email_verified_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+    UserInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'John Doe'
+        email:
+          type: string
+          example: john.doe@example.com
+        password:
+          type: string
+          example: secret123
+      required:
+        - name
+        - email
+        - password
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        surnom:
+          type: string
+          example: JD
+        user_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+    ClientInput:
+      type: object
+      properties:
+        surnom:
+          type: string
+          example: JD
+        user_id:
+          type: integer
+          example: 1
+      required:
+        - surnom
+        - user_id
+    Material:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        designation:
+          type: string
+          example: modem
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+    MaterialInput:
+      type: object
+      properties:
+        designation:
+          type: string
+          example: modem
+      required:
+        - designation
+    Sale:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        titre:
+          type: string
+          example: 'vente 1'
+        description:
+          type: string
+          example: 'description 1'
+          nullable: true
+        customer_id:
+          type: integer
+          example: 2
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        materials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Material'
+    SaleInput:
+      type: object
+      properties:
+        titre:
+          type: string
+          example: 'vente 1'
+        description:
+          type: string
+          example: 'description 1'
+          nullable: true
+        customer_id:
+          type: integer
+          example: 2
+        material_ids:
+          type: array
+          items:
+            type: integer
+          example:
+            - 1
+            - 2
+      required:
+        - titre
+        - customer_id
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titre:
+          type: string
+          example: 'Ticket 1'
+        description:
+          type: string
+          example: 'description 1'
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2025-03-29T15:00:00.000000Z'
+    TicketInput:
+      type: object
+      properties:
+        titre:
+          type: string
+          example: 'Ticket 1'
+        description:
+          type: string
+          example: 'description 1'
+          nullable: true
+      required:
+        - titre
+tags:
+  -
+    name: Users
+    description: 'Opérations sur les utilisateurs'
+  -
+    name: Clients
+    description: 'Opérations sur les clients'
+  -
+    name: Materials
+    description: 'Opérations sur les matériaux'
+  -
+    name: Sales
+    description: 'Opérations sur les ventes'
+  -
+    name: Tickets
+    description: 'Opérations sur les tickets'
