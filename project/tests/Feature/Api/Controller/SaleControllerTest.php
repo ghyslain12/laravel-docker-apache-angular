@@ -6,6 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use App\Models\Sale;
 use App\Models\Customer;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+use Firebase\JWT\JWT;
 use PHPUnit\Framework\Attributes\Test;
 
 class SaleControllerTest extends TestCase
@@ -19,9 +22,40 @@ class SaleControllerTest extends TestCase
         parent::setUp();
     }
 
+    private function authenticate($user)
+    {
+        if (env('JWT_ENABLE', false)) {
+            // Avec JWT personnalisé
+            $token = $this->generateJwtToken($user->id);
+            return $this->withHeaders(['Authorization' => "Bearer $token"]);
+        } else {
+            // Avec Sanctum
+            Sanctum::actingAs($user, ['*']);
+            return $this;
+        }
+    }
+
+    private function generateJwtToken($userId)
+    {
+        $key = env('JWT_SECRET');
+        if (!$key) {
+            throw new \Exception('JWT_SECRET is not defined in .env.testing');
+        }
+        $payload = [
+            'iss' => 'laravel',
+            'sub' => $userId,
+            'iat' => time(),
+            'exp' => time() + 3600,
+        ];
+        return JWT::encode($payload, $key, 'HS256');
+    }
+
     #[Test]
     public function it_lists_sales_successfully()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         Sale::factory()->count(3)->create();
 
         $response = $this->getJson('/api/sale');
@@ -34,9 +68,22 @@ class SaleControllerTest extends TestCase
     }
 
     #[Test]
+    public function it_fails_to_list_sales_without_auth()
+    {
+        Sale::factory()->count(3)->create();
+
+        $response = $this->getJson('/api/sale');
+
+        $response->assertStatus(401);
+    }
+
+    #[Test]
     public function it_creates_a_new_sale()
     {
-        $customer = Customer::factory()->create();
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
+        $customer = Customer::factory()->create(['user_id' => $user->id]);
 
         $data = [
             'titre' => 'SaleTest',
@@ -60,6 +107,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_fails_to_create_sale_with_invalid_data()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $data = [
             'titre' => '',
             'customer_id' => 999,
@@ -74,6 +124,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_shows_a_sale_successfully()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $this->sale = Sale::factory()->create();
 
         $response = $this->getJson("/api/sale/{$this->sale->id}");
@@ -91,6 +144,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_fails_to_show_nonexistent_sale()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $response = $this->getJson('/api/sale/999');
 
         $response->assertStatus(404);
@@ -99,6 +155,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_updates_a_sale_successfully()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $this->sale = Sale::factory()->create();
         $customer = Customer::factory()->create();
 
@@ -122,6 +181,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_deletes_a_sale_successfully()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $this->sale = Sale::factory()->create();
 
         $response = $this->deleteJson("/api/sale/{$this->sale->id}");
@@ -134,6 +196,9 @@ class SaleControllerTest extends TestCase
     #[Test]
     public function it_fails_to_delete_nonexistent_sale()
     {
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
         $response = $this->deleteJson('/api/sale/999');
 
         $response->assertStatus(404);

@@ -16,10 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->text('description')->nullable();
-            $table->foreignId('customer_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

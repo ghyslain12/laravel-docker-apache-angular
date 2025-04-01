@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\SaleController;
 use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,41 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('utilisateur')->group(function () {
-    Route::get('/ping', [UtilisateurController::class, 'ping']);
-    Route::get('/', [UtilisateurController::class, 'index']);
-    Route::post('/', [UtilisateurController::class, 'store']);
-    Route::get('/{id}', [UtilisateurController::class, 'show']);
-    Route::put('/{id}', [UtilisateurController::class, 'update']);
-    Route::delete('/{id}', [UtilisateurController::class, 'destroy']);
-});
-Route::prefix('client')->group(function () {
-    Route::get('/', [ClientController::class, 'index']);
-    Route::post('/', [ClientController::class, 'store']);
-    Route::get('/{id}', [ClientController::class, 'show']);
-    Route::put('/{id}', [ClientController::class, 'update']);
-    Route::delete('/{id}', [ClientController::class, 'destroy']);
-});
-Route::prefix('material')->group(function () {
-    Route::get('/ping', [MaterialController::class, 'ping']);
-    Route::get('/', [MaterialController::class, 'index']);
-    Route::post('/', [MaterialController::class, 'store']);
-    Route::get('/{id}', [MaterialController::class, 'show']);
-    Route::put('/{id}', [MaterialController::class, 'update']);
-    Route::delete('/{id}', [MaterialController::class, 'destroy']);
-});
-Route::prefix('sale')->group(function () {
-    Route::get('/', [SaleController::class, 'index']);
-    Route::post('/', [SaleController::class, 'store']);
-    Route::get('/{id}', [SaleController::class, 'show']);
-    Route::put('/{id}', [SaleController::class, 'update']);
-    Route::delete('/{id}', [SaleController::class, 'destroy']);
-});
-Route::prefix('ticket')->group(function () {
-    Route::get('/', [TicketController::class, 'index']);
-    Route::post('/', [TicketController::class, 'store']);
-    Route::get('/{id}', [TicketController::class, 'show']);
-    Route::put('/{id}', [TicketController::class, 'update']);
-    Route::delete('/{id}', [TicketController::class, 'destroy']);
-});
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/utilisateur/ping', [UtilisateurController::class, 'ping']);
+Route::get('/material/ping', [MaterialController::class, 'ping']);
 
+Route::middleware(env('JWT_ENABLE', false) ? 'jwt' : [])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::apiResource('client', ClientController::class);
+    Route::apiResource('material', MaterialController::class);
+    Route::apiResource('sale', SaleController::class);
+    Route::apiResource('ticket', TicketController::class);
+    Route::apiResource('utilisateur', UtilisateurController::class);
+});
