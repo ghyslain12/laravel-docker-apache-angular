@@ -73,3 +73,7 @@ Api Swagger: http://localhost:8741/api/documentation
 ![appercu crud](ressources/login.png)
 
 ![appercu crud](ressources/swagger.png)
+
+![appercu crud](ressources/jwt_ok.png)
+
+![appercu crud](ressources/jwt_nok.png)
