@@ -70,4 +70,6 @@ Api Swagger: http://localhost:8741/api/documentation
 
 ![appercu crud](ressources/preview-angular.png)
 
+![appercu crud](ressources/login.png)
+
 ![appercu crud](ressources/swagger.png)
