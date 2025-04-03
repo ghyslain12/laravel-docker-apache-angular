@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { GenericService } from "../../generic.service";
+import { GenericService } from "../../generic-service/generic.service";
 import { Material } from '../../../models/material.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../shared/components/error-dialog.component';

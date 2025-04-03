@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { GenericService } from '../../../../../core/services/generic.service';
+import { GenericService } from '../../../../../core/services/generic-service/generic.service';
 import { Client } from '../../../../../core/models/client.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';

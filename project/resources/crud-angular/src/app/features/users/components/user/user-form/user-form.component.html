@@ -20,13 +20,13 @@
           <mat-label>Password</mat-label>
           <input matInput formControlName="password">
         </mat-form-field>
-    }      
-      
+    }
+
     <div class="actions">
       <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
         {{ titrePage }}
       </button>
-      <button mat-button [routerLink]="['/user']" type="button">Annuler</button>
+      <button mat-button (click)="goBack()" type="button">Annuler</button>
     </div>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { Subject, takeUntil } from 'rxjs';
@@ -17,16 +17,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   unsubscribe = new Subject<void>();
-
-  loading = true;
+  loading = false;
 
   constructor(private router: Router) {
-    this.router.events.pipe(takeUntil(this.unsubscribe))
-      .subscribe((routerEvent) => {
-        this.checkRouterEvent(routerEvent as RouterEvent);
-      });
+    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((routerEvent) => {
+      this.checkRouterEvent(routerEvent as RouterEvent);
+    });
   }
 
   checkRouterEvent(routerEvent: RouterEvent): void {
@@ -35,9 +33,14 @@ export class AppComponent {
     }
 
     if (routerEvent instanceof NavigationEnd ||
-        routerEvent instanceof NavigationCancel ||
-        routerEvent instanceof NavigationError) {
-        this.loading = false;
+      routerEvent instanceof NavigationCancel ||
+      routerEvent instanceof NavigationError) {
+      this.loading = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

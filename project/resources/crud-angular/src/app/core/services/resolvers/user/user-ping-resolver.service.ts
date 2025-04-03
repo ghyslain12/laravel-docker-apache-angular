@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 
-import { GenericService } from "../../generic.service";
+import { GenericService } from "../../generic-service/generic.service";
 import { User } from '../../../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../shared/components/error-dialog.component';
@@ -17,7 +17,7 @@ export class userPingResolver implements Resolve<any> {
 
   constructor(private user: GenericService<User[]>, private dialog: MatDialog) {}
   resolve(): Observable<any> {
-    return this.user.get(`${this.baseUri}/api/utilisateur`).pipe(
+    return this.user.get(`${this.baseUri}/api/utilisateur/ping`).pipe(
       catchError(error => {
         this.showErrorDialog(error.message);
         return of('No data');

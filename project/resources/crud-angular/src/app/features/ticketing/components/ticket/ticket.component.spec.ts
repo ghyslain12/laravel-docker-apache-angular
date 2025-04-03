@@ -19,7 +19,6 @@ describe('TicketComponent', () => {
   const mockClient: Client = { id: 1, surnom: 'client1',  idUser: 1, userName: 'user1', user: mockUser };
   const mockMaterial: Material = { id: 1, designation: 'modem', checked: false };
   const mockSale: Sale = { id: 1, titre: 'sale1', description: 'desc1', idClient: 1, materials: [mockMaterial], customer: mockClient };
-  const mockTicket: Ticket = { id: 1, titre: 'ticket1', description: 'ticketdesc1', idSale: 1, sales: [mockSale] };
 
   const mockTickets: Ticket[] = [
     { id: 1, titre: 'ticket1', description: 'ticketdesc1', idSale: 1, sales: [mockSale] },
@@ -57,7 +56,6 @@ describe('TicketComponent', () => {
     const mockClient: Client = { id: 1, surnom: 'client1',  idUser: 1, userName: 'user1', user: mockUser };
     const mockMaterial: Material = { id: 1, designation: 'modem', checked: false };
     const mockSale: Sale = { id: 1, titre: 'sale1', description: 'desc1', idClient: 1, materials: [mockMaterial], customer: mockClient };
-    const mockTicket: Ticket = { id: 1, titre: 'ticket1', description: 'ticketdesc1', idSale: 1, sales: [mockSale] };
 
     component.tickets = [
       { id: 1, titre: 'ticket1', description: 'ticketdesc1', idSale: 1, sales: [mockSale] },

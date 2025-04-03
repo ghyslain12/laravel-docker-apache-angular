@@ -27,6 +27,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/utilisateur/ping', [UtilisateurController::class, 'ping']);
 Route::get('/material/ping', [MaterialController::class, 'ping']);
+Route::post('/utilisateur', [UtilisateurController::class, 'store']);
+
+Route::get('/config/jwt', function () {
+    return response()->json([
+        'jwt_enabled' => env('JWT_ENABLE', false)
+    ]);
+});
 
 Route::middleware(env('JWT_ENABLE', false) ? 'jwt' : [])->group(function () {
     Route::get('/user', function (Request $request) {
@@ -36,5 +43,5 @@ Route::middleware(env('JWT_ENABLE', false) ? 'jwt' : [])->group(function () {
     Route::apiResource('material', MaterialController::class);
     Route::apiResource('sale', SaleController::class);
     Route::apiResource('ticket', TicketController::class);
-    Route::apiResource('utilisateur', UtilisateurController::class);
+	Route::apiResource('utilisateur', UtilisateurController::class)->except(['store']);
 });

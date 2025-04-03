@@ -5,7 +5,7 @@ import {provideRouter, Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {GenericService} from '../../../../../core/services/generic.service';
+import {GenericService} from '../../../../../core/services/generic-service/generic.service';
 import {Ticket} from '../../../../../core/models/ticket.model';
 import {User} from '../../../../../core/models/user.model';
 import {MatFormFieldModule} from '@angular/material/form-field';

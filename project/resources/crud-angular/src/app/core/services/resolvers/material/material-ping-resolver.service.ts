@@ -3,7 +3,7 @@ import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { GenericService } from "../../generic.service";
+import { GenericService } from "../../generic-service/generic.service";
 import { Material } from '../../../models/material.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../shared/components/error-dialog.component';
@@ -17,7 +17,7 @@ export class materialPingResolver implements Resolve<any> {
 
   constructor(private material: GenericService<Material[]>, private dialog: MatDialog) {}
   resolve(): Observable<any> {
-    return this.material.get(`${this.baseUri}/api/material`).pipe(
+    return this.material.get(`${this.baseUri}/api/material/ping`).pipe(
       catchError(error => {
         this.showErrorDialog(error.message);
         return of('No data');

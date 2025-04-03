@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {GenericService} from '../../../../../core/services/generic.service';
+import {GenericService} from '../../../../../core/services/generic-service/generic.service';
 import {Material} from '../../../../../core/models/material.model';
 
 describe('MaterialFormComponent', () => {

@@ -3,7 +3,7 @@ import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { GenericService } from "../../generic.service";
+import { GenericService } from "../../generic-service/generic.service";
 import { Client } from '../../../models/client.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../shared/components/error-dialog.component';

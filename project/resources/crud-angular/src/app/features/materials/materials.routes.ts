@@ -1,6 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Routes } from '@angular/router';
 import { materialResolver } from '../../core/services/resolvers/material/material-resolver.service';
 import { materialResolverSolo } from '../../core/services/resolvers/material/material-resolver.service-solo';
 import { MaterialFormComponent } from './components/material/material-form/material-form.component';
@@ -10,15 +8,10 @@ import { MaterialShowComponent } from './components/material/material-show/mater
 
 
 
-const routes: Routes = [
+export const materialsRoutes: Routes = [
     { path: '', component: MaterialComponent, resolve: {materials: materialResolver} },
     { path: 'add', component: MaterialFormComponent, resolve: {ping: materialPingResolver} },
     { path: 'edit/:id', component: MaterialFormComponent, resolve: {material: materialResolverSolo} },
     { path: 'show/:id', component: MaterialShowComponent, resolve: {material: materialResolverSolo} }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes), ReactiveFormsModule],
-  exports: [RouterModule]
-})
-export class MaterialsRoutingModule { }

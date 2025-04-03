@@ -29,13 +29,14 @@ docker-compose down
 
 ## Features
 - Back-end: Laravel Api JWT
-- Front-end: Angular
+- Front-end: Angular & JWT login / signup
 - Testing
 - Swagger
+- Docker
 
 ## Services
-- Angular: http://localhost:4200/
-- Laravel: http://localhost:8741
+- Angular (front-end): http://localhost:4200
+- Laravel (API): http://localhost:8741/api
 
 
 ## API [utilisateur, client, material, ticket, sale...]

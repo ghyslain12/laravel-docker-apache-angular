@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sale } from '../../../../core/models/sale.model';
-import { GenericService } from '../../../../core/services/generic.service';
+import { GenericService } from '../../../../core/services/generic-service/generic.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,7 +33,7 @@ export class SaleComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<any>; 
+  @ViewChild(MatTable) table!: MatTable<any>;
 
   constructor(
     private genericService: GenericService<Sale>,
@@ -87,7 +87,7 @@ export class SaleComponent implements OnInit {
           this.loadSales();
           const updatedData = this.dataSource.data.filter(item => item.id !== sale.id);
           this.dataSource.data = updatedData;
-          this.table.renderRows();          
+          this.table.renderRows();
         });
       }
     });

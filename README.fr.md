@@ -29,13 +29,14 @@ docker-compose down
 
 ## Fonctionnalités
 - Back-end: Laravel Api JWT
-- Front-end: Angular
+- Front-end: Angular & JWT connexion / inscription
 - Testing
 - Swagger
+- Docker
 
 ## Services
-- Angular (front-end): http://localhost:4200/
-- Laravel (API): http://localhost:8741
+- Angular (front-end): http://localhost:4200
+- Laravel (API): http://localhost:8741/api
 
 
 ## API [utilisateur, client, material, ticket, sale...]
@@ -63,7 +64,7 @@ Api Swagger: http://localhost:8741/api/documentation
 ![POST](https://img.shields.io/badge/POST-%23ff9800?style=flat-square&logo=git&logoColor=white)  **`/login`** Authentifie un utilisateur et retourne un token.
 
 - Activer (.env): JWT_ENABLE=true
-- Désactivé (.env): JWT_ENABLE=false
+- Désactiver (.env): JWT_ENABLE=false
 
 ## Aperçu
 
