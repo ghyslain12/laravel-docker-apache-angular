@@ -82,6 +82,9 @@ class TicketController extends Controller
         $data = $request->only(['titre', 'description']);
 
         $ticket->update($data);
+        
+        $ticket->sales()->sync([$request->sale_id]);
+        $ticket->load('sales');
 
         return response()->json($ticket);
     }
