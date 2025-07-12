@@ -14,7 +14,7 @@ class MaterialControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $material; 
+    protected $material;
 
     protected function setUp(): void
     {
@@ -58,14 +58,13 @@ class MaterialControllerTest extends TestCase
         Material::factory()->count(3)->create();
 
         $response = $this->getJson('/api/material');
-
         $response->assertStatus(200)
                  ->assertJsonCount(3)
                  ->assertJsonStructure([
                      '*' => ['id', 'designation', 'created_at', 'updated_at'],
                  ]);
     }
-/*
+
     #[Test]
     public function it_fails_to_list_materials_without_auth()
     {
@@ -187,5 +186,5 @@ class MaterialControllerTest extends TestCase
         $response = $this->deleteJson('/api/material/999');
 
         $response->assertStatus(404);
-    }*/
+    }
 }
